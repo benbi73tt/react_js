@@ -1,19 +1,45 @@
 import React, { Component } from 'react';
-import AFcomponent from './AFcomponent';
 
 export default class Ccomponent extends Component { //export для экспортирование компонента
-    render() {
-        return ( 
-        <div >
-            <AFcomponent / >
-            <h1 > Class Component {this.props.name}</h1>
-            {/* <h1 > Class Component {this.props.numbers.join(',')}</h1> */}
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+            //  name:'Alex'
+            visibility:false
+        };
+        this.handleClick=this.handleClick.bind(this);// метод класса в js по умолчанию не привязан к контексту
+    }
+    handleClick(){
+        this.setState(state=>({
+            visibility:!state.visibility
+        }));
+        // this.setState({
+        //     name:'Web developer blog'
+        // });
 
-        </div>
-        )
+    }
+    
+    render() {
+        if(this.state.visibility){
+            return ( 
+                <div >
+                    <h1 > Now you see me </h1>
+                    <button onClick={this.handleClick}>Click</button>
+        
+                </div>
+         );
+       
+        }  else{
+             return(
+             <div>
+                 <button onClick={this.handleClick}>Click</button>
+             </div>
+             )
+        }
+
     }
 }
-Ccomponent.defaultProps={name:'Alexey'};//!Значение по дефолту
 
 
 //!rcc классовые компоненты

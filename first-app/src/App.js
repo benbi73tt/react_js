@@ -1,17 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import Fcomponent from './Fcomponent';
 import Ccomponent from './Ccomponent';
-import { AFcomponent } from './AFcomponent';
 
 function App() {
     return ( <div className = "App" >
-        <header className = "App-header" >
-        <Fcomponent name = 'Ivan'
-        surname='Dyshkin' / >   
+        <header className = "App-header" > 
          <Ccomponent / >
-        {/* <Ccomponent numbers={[1,2,3,4,5,]}/ > */}
-        <AFcomponent / >
         <img src = { logo }
         className = "App-logo"
         alt = "logo" / >
