@@ -2,44 +2,46 @@ import React, { Component } from 'react';
 
 export default class Ccomponent extends Component { //export для экспортирование компонента
     constructor(props) {
-        super(props)
+        super(props);
     
         this.state = {
-            //  name:'Alex'
-            visibility:false
+            count:0
         };
-        this.handleClick=this.handleClick.bind(this);// метод класса в js по умолчанию не привязан к контексту
+        this.increment=this.increment.bind(this);
+        this.decrement=this.decrement.bind(this);
+        this.reset=this.reset.bind(this);// метод класса в js по умолчанию не привязан к контексту
     }
-    handleClick(){
+
+    increment(){
         this.setState(state=>({
-            visibility:!state.visibility
+            count: state.count+1
         }));
-        // this.setState({
-        //     name:'Web developer blog'
-        // });
 
     }
     
-    render() {
-        if(this.state.visibility){
-            return ( 
-                <div >
-                    <h1 > Now you see me </h1>
-                    <button onClick={this.handleClick}>Click</button>
-        
-                </div>
-         );
-       
-        }  else{
-             return(
-             <div>
-                 <button onClick={this.handleClick}>Click</button>
-             </div>
-             )
-        }
+    decrement(){
+        this.setState(state=>({
+            count: state.count-1
+        }));
 
     }
-}
+    reset(){
+        this.setState({
+            count: 0
+        });
+
+    }
+    render() {
+       return(
+           <div>
+             <button onClick={this.increment}>increment</button>
+             <button onClick={this.decrement}>decrement</button>
+             <button onClick={this.reset}>reset</button>
+             <h1>Current:{this.state.count}</h1>
+             
+           </div>
+       )
+}}
 
 
 //!rcc классовые компоненты
