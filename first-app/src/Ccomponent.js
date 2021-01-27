@@ -6,7 +6,7 @@ export default class Ccomponent extends Component { //export для экспор
     
         this.state = {
             input:'',
-            submit:''
+            items: []
         };
         this.handleChange=this.handleChange.bind(this);//привязать метод по умолчанию
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -18,10 +18,11 @@ export default class Ccomponent extends Component { //export для экспор
         })
     }
 
-    handleSubmit(event){
-       event.preventDefault()
+    handleSubmit(event){//устанавливает свойство состояния
+       event.preventDefault()//обработчик отправки, без перезагрузки страницы
        this.setState({
-        submit:this.state.input
+            input: this.state.input,
+            items: [...this.state.items, this.state.input]
        });
     }
 
@@ -33,8 +34,11 @@ export default class Ccomponent extends Component { //export для экспор
                  <button type='submit'>submit</button>
                </form>
 
-             <h5>Cotrolled input:</h5>
-             <h3>{this.state.submit}</h3>
+            <ul>
+                {this.state.items.map((item,index)=>(
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
            </div>
        )
     };
