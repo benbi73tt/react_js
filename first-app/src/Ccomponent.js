@@ -2,30 +2,28 @@ import React, { Component } from 'react';
 import './style.css';
 // import { Button } from '@material-ui/core';
 import Fcomponent from './Fcomponent';
-import FTcomponent from './FТcomponent';
 //!Контролируемый input
 export default class Ccomponent extends Component { //export для экспортирование компонента
     constructor(props) {
         super(props);
     
         this.state = {
-            inputValue:''
+            name:'button not pressed'
       };
-      this.handleChange=this.handleChange.bind(this);
+      this.updateData=this.updateData.bind(this);
     }
   
-    handleChange(event){
+    updateData(value){
         this.setState({
-            inputValue: event.target.value
+            name:value
         })
     }
 
     render() {
        return(
            <div>
-            <Fcomponent input={this.state.inputValue} 
-            handleChange={this.handleChange}/>
-            <FTcomponent input={this.state.inputValue}/>
+               <p>State:{this.state.name}</p>
+                <Fcomponent updateData={this.updateData}/>
            </div>
         )
         }
