@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Fcomponent extends Component {
+export default class FTcomponent extends Component {
     constructor(props) {
         super(props)
     
@@ -9,11 +9,11 @@ export default class Fcomponent extends Component {
         }
     }
     
-    render() {
+    render() { 
         return (
             <div>
-                <h1>Input:</h1>
-                <input value={this.props.input} onChange={this.props.handleChange}/>
+                <h1>Render input</h1>
+                <p>{this.props.input}</p>
             </div>
         )
     }
