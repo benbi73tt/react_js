@@ -5,9 +5,11 @@ export default class Ccomponent extends Component { //export для экспор
         super(props);
     
         this.state = {
-            input:''
+            input:'',
+            submit:''
         };
         this.handleChange=this.handleChange.bind(this);//привязать метод по умолчанию
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
 
     handleChange(event){
@@ -16,12 +18,23 @@ export default class Ccomponent extends Component { //export для экспор
         })
     }
 
+    handleSubmit(event){
+       event.preventDefault()
+       this.setState({
+        submit:this.state.input
+       });
+    }
+
     render() {
        return(
            <div>
-             <input onChange ={this.handleChange}/>
+               <form onSubmit={this.handleSubmit}>
+                 <input value={this.state.input} onChange ={this.handleChange}/>
+                 <button type='submit'>submit</button>
+               </form>
+
              <h5>Cotrolled input:</h5>
-             <h3>{this.state.input}</h3>
+             <h3>{this.state.submit}</h3>
            </div>
        )
     };
