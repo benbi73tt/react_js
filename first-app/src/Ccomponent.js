@@ -1,47 +1,31 @@
 import React, { Component } from 'react';
-
+//!Контролируемый input
 export default class Ccomponent extends Component { //export для экспортирование компонента
     constructor(props) {
         super(props);
     
         this.state = {
-            count:0
+            input:''
         };
-        this.increment=this.increment.bind(this);
-        this.decrement=this.decrement.bind(this);
-        this.reset=this.reset.bind(this);// метод класса в js по умолчанию не привязан к контексту
+        this.handleChange=this.handleChange.bind(this);//привязать метод по умолчанию
     }
 
-    increment(){
-        this.setState(state=>({
-            count: state.count+1
-        }));
-
-    }
-    
-    decrement(){
-        this.setState(state=>({
-            count: state.count-1
-        }));
-
-    }
-    reset(){
+    handleChange(event){
         this.setState({
-            count: 0
-        });
-
+            input: event.target.value
+        })
     }
+
     render() {
        return(
            <div>
-             <button onClick={this.increment}>increment</button>
-             <button onClick={this.decrement}>decrement</button>
-             <button onClick={this.reset}>reset</button>
-             <h1>Current:{this.state.count}</h1>
-             
+             <input onChange ={this.handleChange}/>
+             <h5>Cotrolled input:</h5>
+             <h3>{this.state.input}</h3>
            </div>
        )
-}}
+    };
+}
 
 
 //!rcc классовые компоненты
