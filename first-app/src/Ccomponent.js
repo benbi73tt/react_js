@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
 import { Button } from '@material-ui/core';
-// import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 // import {
 //     BrowserRouter as Router,
 //     Switch,
@@ -16,51 +16,57 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-             show:false,
-             name:'',
-             input:''
+            TextField :'',
+            submit:''
             
         }
         this.handleChange=this.handleChange.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
 
     handleChange(event){
-        event.preventDefault();
-        
-        this.setState(state=>({
-            show:!state.show,
-            // name:this.state.input
+        this.setState({
+         TextField : event.target.value
+        });
+     }
 
-        }));
-    }
+    handleSubmit(event){
+        event.preventDefault();
+        this.setState({
+         submit: this.state.TextField 
+        });
+     }
 
 
 
     
     render() {
-        if(this.state.show)
+        
         return (
           <div>
-    
-              <h1>hello{this.state.name}</h1>
-              
-              <Button onClick={this.handleChange} variant="contained" color="primary">
-                Primary
-               </Button>
-        </div>
-        )
-        else return(
-            
-            <div>        
-             <form>
-      
+             <form onSubmit={this.handleSubmit}>
                 <h1>Who are you?</h1>
-                {/* <input /> */}
-                 <Button onClick={this.handleChange} variant="contained" color="primary">
+                <TextField 
+                    value={this.state.TextField } 
+                    onChange ={this.handleChange}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="name"
+                    label="name"
+                    name="name"
+                    autoComplete="name"
+                    autoFocus
+                /> 
+                    <Button  variant="contained" color="primary" type='submit'>
                     Primary
                 </Button>
-                </form>
-            </div>
+               </form>
+               <h3>hello, {this.state.submit}</h3>
+               
+
+        </div>
         )
     }
 }
