@@ -1,31 +1,60 @@
 import React, { Component } from 'react';
 import './style.css';
 // import { Button } from '@material-ui/core';
-import Fcomponent from './Fcomponent';
+// import Fcomponent from './Fcomponent';
 //!Контролируемый input
 export default class Ccomponent extends Component { //export для экспортирование компонента
     constructor(props) {
         super(props);
     
         this.state = {
-            name:'button not pressed'
+            error:null, //отслеживает ошибки
+            isLoaded:false,
+            items:[]//набор компонентов, которые будем получать
       };
-      this.updateData=this.updateData.bind(this);
-    }
-  
-    updateData(value){
-        this.setState({
-            name:value
-        })
     }
 
-    render() {
-       return(
-           <div>
-               <p>State:{this.state.name}</p>
-                <Fcomponent updateData={this.updateData}/>
-           </div>
+    componentDidMount() {
+        fetch('http://ссылка')
+        .then(res => res.json())
+        .then(
+            (result)=>{
+                this.setState({  //Здесь изменяем состояние
+                    isLoaded: true,
+                    items: result.drinks//(drins-название главное json)
+                });
+                     
+            },
+            (error)=>{
+                this.setState({  //Здесь изменяем состояние
+                    isLoaded: true,
+                   error
+                 });
+            }
         )
+    }
+  
+
+    render() {
+        const {error, isLoaded,items}=this.state;
+        if(error){
+            return (<p>Error {error.message}</p>)
+        }else if(!isLoaded){
+            return <p>Loading...</p>
+        }else{
+            return (
+                <ul>
+                    {items.map(item=>(
+                        <li key={item.name}>
+                            {item.strDrink}
+                            <img  width='50' height='50' src ={item.strDrinkThumb}/>
+                        </li>
+                    ))}
+                
+                </ul>
+                
+            )
+        }
         }
     }
 
