@@ -16,23 +16,42 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
+            name:'ivan',
+            age:25
             
         }
+        this.showMessage=this.showMessage.bind(this);
+        this.ChangeUsers=this.ChangeUsers.bind(this);
     }
 
+
+
+showMessage(){
+  alert(this.state.name)
+
+}
+ChangeUsers(){
+    if(this.state.name==='ivan'){
+    this.setState({
+        name:'Коля',
+        age:30
+    })}
+    else{
+        this.setState({
+            name:'ivan',
+            age:25
+        })
+    }
+}
 
 
 
     
     render() {
-        const arr=['a','b','c','d','e'];
-        const list=arr.map(function(item,index){
-                  return <li key={index}>{item}</li>
-        });
         return (
           <div>
-              <ul>{list}</ul>
-               
+              <button onClick={this.showMessage}>Нажми на меня</button>
+              <button onClick={this.ChangeUsers}>Смена</button>
 
         </div>
         )
