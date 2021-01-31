@@ -18,37 +18,22 @@ export default class Ccomponent extends Component {
         this.state = {
             name:'Иван',
             age:25,
-            flag:true
+            flag:true,
+            show:true
             
         }
-        this.showMessage=this.showMessage.bind(this);
         this.ChangeUsers=this.ChangeUsers.bind(this);
         this.BtnHi=this.BtnHi.bind(this);
+        this.ShowText=this.ShowText.bind(this);
     }
-
-
-
-showMessage(){
-    if(this.state.flag){
-        alert('Привет ' + this.state.name + ' ' + this.state.age)
-    }
-    else{
-        alert('Пока ' + this.state.name + ' ' + this.state.age)
-    }
-
-
-}
 
 BtnHi(){
-    if(this.state.flag){
+
         this.setState({
-            flag:false
-    })}
-    else{
-        this.setState({
-            flag:true
-        })}
+            flag:!this.state.flag
+    })
 }
+
 ChangeUsers(){
     if(this.state.name==='Иван'){
     this.setState({
@@ -63,15 +48,23 @@ ChangeUsers(){
     }
 }
 
+ShowText(){
+        this.setState({
+            show:!this.state.show
+    })
+}
+
 
 
     
     render() {
         return (
           <div>
-              <button onClick={this.showMessage}>Нажми на меня</button>
+              
+              <p>{this.state.show?<p>{this.state.flag?'Привет':'Пока'} {this.state.name} {this.state.age}</p>:" "}</p>
               <button onClick={this.ChangeUsers}>Смена</button>
-              <button onClick={this.BtnHi}>Привет/Пока</button>
+              <button onClick={this.BtnHi}>{this.state.flag?'Попращаться':'Поприветствовать'}</button>
+              <button onClick={this.ShowText}>{this.state.show?'Скрыть':'Показать'}</button>
 
         </div>
         )
