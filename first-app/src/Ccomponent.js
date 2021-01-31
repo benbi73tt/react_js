@@ -16,29 +16,48 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            name:'ivan',
-            age:25
+            name:'Иван',
+            age:25,
+            flag:true
             
         }
         this.showMessage=this.showMessage.bind(this);
         this.ChangeUsers=this.ChangeUsers.bind(this);
+        this.BtnHi=this.BtnHi.bind(this);
     }
 
 
 
 showMessage(){
-  alert(this.state.name)
+    if(this.state.flag){
+        alert('Привет ' + this.state.name + ' ' + this.state.age)
+    }
+    else{
+        alert('Пока ' + this.state.name + ' ' + this.state.age)
+    }
+
 
 }
+
+BtnHi(){
+    if(this.state.flag){
+        this.setState({
+            flag:false
+    })}
+    else{
+        this.setState({
+            flag:true
+        })}
+}
 ChangeUsers(){
-    if(this.state.name==='ivan'){
+    if(this.state.name==='Иван'){
     this.setState({
         name:'Коля',
         age:30
     })}
     else{
         this.setState({
-            name:'ivan',
+            name:'Иван',
             age:25
         })
     }
@@ -52,6 +71,7 @@ ChangeUsers(){
           <div>
               <button onClick={this.showMessage}>Нажми на меня</button>
               <button onClick={this.ChangeUsers}>Смена</button>
+              <button onClick={this.BtnHi}>Привет/Пока</button>
 
         </div>
         )
