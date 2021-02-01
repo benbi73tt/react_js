@@ -16,71 +16,42 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            name:'Иван',
-            age:25,
-            flag:true,
-            show:true,
-            items:['Вася','Петя','Коля'],
-            hrefs: [
-                {href: '1.html', text: 'ссылка'},
-                {href: '2.html', text: 'ссылка'},
-                {href: '3.html', text: 'ссылка'},
-            ]        
-            
-        }
-        this.ChangeUsers=this.ChangeUsers.bind(this);
-        this.BtnHi=this.BtnHi.bind(this);
-        this.ShowText=this.ShowText.bind(this);
+            items:['Коля', 'Вася', 'Петя', 'Иван', 'Дима'],
+        
+             
+        }   
+         this.NewList=this.NewList.bind(this);
+         this.DelList=this.DelList.bind(this);
     }
 
-BtnHi(){
-
+    NewList(){
+        this.state.items.push('пункт');
         this.setState({
-            flag:!this.state.flag
-    })
-}
-
-ChangeUsers(){
-    if(this.state.name==='Иван'){
-    this.setState({
-        name:'Коля',
-        age:30
-    })}
-    else{
-        this.setState({
-            name:'Иван',
-            age:25
+            items:this.state.items
         })
+
     }
-}
-
-ShowText(){
+    DelList(index){
+        this.state.items.splice(index,1);
         this.setState({
-            show:!this.state.show
-    })
-}
+            items:this.state.items
+        })
 
-
+    }
 
     
     render() {
-        const text = <p>{this.state.show?<p>{this.state.flag?'Привет':'Пока'} {this.state.name} {this.state.age}</p>:" "}</p>;
-        const list= this.state.items.map(function(item,index){
-            return <li key={index}> {index+1} - {item} </li>
-        })
-        const listA=this.state.hrefs.map((item,index)=>{
-            return <li key={index}><a href={item.href}>{item.text} {index+1}</a></li>
-        })
+        const text=this.state.items.map((item,index)=>{
+            return <li key={index}>{item}<button onClick={this.DelList.bind(this, index)}>
+            удалить
+        </button></li>
+        });
         return (
-          <div>
-              {text}
-              <button onClick={this.ChangeUsers}>Смена</button>
-              <button onClick={this.BtnHi}>{this.state.flag?'Попращаться':'Поприветствовать'}</button>
-              <button onClick={this.ShowText}>{this.state.show?'Скрыть':'Показать'}</button>
-              <ul>{list}</ul>
-              <ul>{listA}</ul>
-
-        </div>
+            <div>
+                <ul>{text}</ul>
+                <button onClick={this.NewList}>Добавить</button>
+            
+            </div>
         )
     }
 }
