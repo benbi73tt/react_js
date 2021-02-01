@@ -16,41 +16,30 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            items:['Коля', 'Вася', 'Петя', 'Иван', 'Дима'],
+            input:'',
         
              
         }   
-         this.NewList=this.NewList.bind(this);
-         this.DelList=this.DelList.bind(this);
+        this.handleChange=this.handleChange.bind(this);
+
     }
 
-    NewList(){
-        this.state.items.push('пункт');
+    handleChange(event){
         this.setState({
-            items:this.state.items
+            input:event.target.value
         })
-
     }
-    DelList(index){
-        this.state.items.splice(index,1);
-        this.setState({
-            items:this.state.items
-        })
 
-    }
+
 
     
     render() {
-        const text=this.state.items.map((item,index)=>{
-            return <li key={index}>{item}<button onClick={this.DelList.bind(this, index)}>
-            удалить
-        </button></li>
-        });
+        const date=new Date();
+        let year=date.getFullYear();
         return (
             <div>
-                <ul>{text}</ul>
-                <button onClick={this.NewList}>Добавить</button>
-            
+                <input onChange={this.handleChange}/>
+                <h3>{year-this.state.input.toUpperCase()}</h3>
             </div>
         )
     }
