@@ -16,43 +16,47 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            name:'',
-            submit:''
+            number:'',
+            submit:'',
+            sum:''
              
         }   
-        this.handleChange=this.handleChange.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
-
+        this.handleChange1=this.handleChange1.bind(this);
+        this.handleChange2=this.handleChange2.bind(this);
+        this.Sum=this.Sum.bind(this);
     }
 
-    handleChange(event){
+    handleChange1(event){
         this.setState({
-            name:event.target.value,
+            number1:event.target.value,
         })
     }
-
-    handleSubmit(event){
-        event.preventDefault();
+    handleChange2(event){
         this.setState({
-            submit:this.state.name
+            number2:event.target.value,
         })
     }
+Sum(event){
+    event.preventDefault();
+    this.setState({
+        submit:+this.state.number1+(+this.state.number2)
 
+    })
+}
 
     
     render() {
-        const name=this.state.submit.split(' ');
+        const num=this.state.submit;
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input value={this.state.name} onChange={this.handleChange}/>
-                    <button type='submit'>submit</button>
+                <h3>Сумма</h3>
+                <form onSubmit={this.Sum}>
+                    <input value={this.state.value} onChange={this.handleChange1}/>
+                    <input value={this.state.value} onChange={this.handleChange2}/>
+                    <button type='submit'>Sum</button>
                 </form>
+                <h3>{num}</h3>
 
-
-                <h3>name:{name[1]}</h3>
-                <h3>surname: {name[0]}</h3>
-                <h3>midname: {name[2]}</h3>
             </div>
         )
     }
