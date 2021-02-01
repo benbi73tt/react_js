@@ -16,30 +16,43 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            input:'',
-        
+            name:'',
+            submit:''
              
         }   
         this.handleChange=this.handleChange.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
 
     }
 
     handleChange(event){
         this.setState({
-            input:event.target.value
+            name:event.target.value,
+        })
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+        this.setState({
+            submit:this.state.name
         })
     }
 
 
-
     
     render() {
-        const date=new Date();
-        let year=date.getFullYear();
+        const name=this.state.submit.split(' ');
         return (
             <div>
-                <input onChange={this.handleChange}/>
-                <h3>{year-this.state.input.toUpperCase()}</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <input value={this.state.name} onChange={this.handleChange}/>
+                    <button type='submit'>submit</button>
+                </form>
+
+
+                <h3>name:{name[1]}</h3>
+                <h3>surname: {name[0]}</h3>
+                <h3>midname: {name[2]}</h3>
             </div>
         )
     }
