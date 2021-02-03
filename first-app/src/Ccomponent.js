@@ -16,57 +16,58 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = { 
-            names:['Ваня','Петя','Коля','Вася'],
-            input:''
-             
+            hrefs: [
+                {href: '1.html', text: 'ссылка 1'},
+                {href: '2.html', text: 'ссылка 2'},
+                {href: '3.html', text: 'ссылка 3'},
+            ],
         }   
-        this.handleChange=this.handleChange.bind(this);
+        this.handleChange1=this.handleChange1.bind(this);
+        this.handleChange2=this.handleChange2.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
-        this.NewList=this.NewList.bind(this);
 
     }
 
-    handleChange(event){
+    handleChange1(event){
         this.setState({
-            name:event.target.value
+            href:event.target.value
+        })
+    }
+
+    handleChange2(event){
+        this.setState({
+            text:event.target.value
         })
     }
 
     handleSubmit(event){
         event.preventDefault();
-        event.target.reset(); 
-
-        }
-
-
-    NewList(){
-        this.state.names.push(this.state.name)
+        this.state.hrefs.push({href:this.state.href,text:this.state.text})
         this.setState({
-            names:this.state.names
+            hrefs:this.state.hrefs
         })
     }
-    DelItem(index){
-        this.state.names.splice(index,1)
-        this.setState({
-            names:this.state.names
-        })
 
-    }
+
  
 
     
     render() {
-        const list=this.state.names.map((item,index)=>{
-            return(<li key={index}>{item}<button onClick={this.DelItem.bind(this,index)}>Удалить</button></li>
-        )})
+        const text=this.state.href;
+        const list=this.state.hrefs.map((item,index)=>{
+            return(<li key={index}><a href={item.href}>{item.text}</a></li>)
+        })
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} >
                     <ul>{list}</ul>
-                    <input onChange={this.handleChange}/>
-                    
-                    <button type='submit' onClick={this.NewList}>Enter</button>
+                    <input onChange={this.handleChange1}/>
+                    <input onChange={this.handleChange2}/>
+                    <button type='submit'>submit</button>
+                    <br/>{text}
                 </form>
+
+
 
             </div>
         )
