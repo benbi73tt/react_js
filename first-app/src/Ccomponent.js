@@ -17,14 +17,17 @@ export default class Ccomponent extends Component {
     
         this.state = { 
             hrefs: [
-                {href: '1.html', text: 'ссылка 1'},
-                {href: '2.html', text: 'ссылка 2'},
-                {href: '3.html', text: 'ссылка 3'},
+                {href: '1.html', text: 'ссылка'},
+                {href: '2.html', text: 'ссылка'},
+                {href: '3.html', text: 'ссылка'},
             ],
         }   
         this.handleChange1=this.handleChange1.bind(this);
         this.handleChange2=this.handleChange2.bind(this);
+        this.handleChange3=this.handleChange3.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.NewList=this.NewList.bind(this);
+        this.DelList=this.DelList.bind(this);
 
     }
 
@@ -39,12 +42,29 @@ export default class Ccomponent extends Component {
             text:event.target.value
         })
     }
+    handleChange3(event){
+        this.setState({
+            number:event.target.value
+        })
+    }
 
     handleSubmit(event){
         event.preventDefault();
         // this.state.hrefs.push({href:this.state.href,text:this.state.text})
+
+    }
+
+    NewList(){
         this.setState({
             hrefs:[...this.state.hrefs,{href:this.state.href,text:this.state.text}]
+        })
+    }
+
+    DelList(number){
+        this.state.hrefs.splice(number,1)
+        this.setState({
+            hrefs:this.state.hrefs
+
         })
     }
 
@@ -53,18 +73,19 @@ export default class Ccomponent extends Component {
 
     
     render() {
-        const text=this.state.href;
         const list=this.state.hrefs.map((item,index)=>{
-            return(<li key={index}><a href={item.href}>{item.text}</a></li>)
+            return(<li key={index}><a href={item.href}>{item.text}-{index+1}</a></li>)
         })
+        const number=this.state.number-1;
         return (
             <div>
                 <form onSubmit={this.handleSubmit} >
                     <ul>{list}</ul>
                     <input onChange={this.handleChange1}/>
                     <input onChange={this.handleChange2}/>
-                    <button type='submit'>submit</button>
-                    <br/>{text}
+                    <button type='submit' onClick={this.NewList}>submit</button><br/>
+                    <input onChange={this.handleChange3}/>
+                    <button type='submit' onClick={this.DelList.bind(this,number)}>Удалить</button>
                 </form>
 
 
