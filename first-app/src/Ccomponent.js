@@ -42,9 +42,9 @@ export default class Ccomponent extends Component {
 
     handleSubmit(event){
         event.preventDefault();
-        this.state.hrefs.push({href:this.state.href,text:this.state.text})
+        // this.state.hrefs.push({href:this.state.href,text:this.state.text})
         this.setState({
-            hrefs:this.state.hrefs
+            hrefs:[...this.state.hrefs,{href:this.state.href,text:this.state.text}]
         })
     }
 
