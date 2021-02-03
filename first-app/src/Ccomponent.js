@@ -15,54 +15,58 @@ export default class Ccomponent extends Component {
     constructor(props) {
         super(props)
     
-        this.state = {
-            number:'',
-            submit:'',
-            sum:''
+        this.state = { 
+            names:['Ваня','Петя','Коля','Вася'],
+            input:''
              
         }   
-        this.handleChange1=this.handleChange1.bind(this);
-        this.handleChange2=this.handleChange2.bind(this);
-        this.handleChange3=this.handleChange3.bind(this);
-        this.Sum=this.Sum.bind(this);
+        this.handleChange=this.handleChange.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
+        this.NewList=this.NewList.bind(this);
+
     }
 
-    handleChange1(event){
+    handleChange(event){
         this.setState({
-            number1:event.target.value,
+            name:event.target.value
         })
     }
-    handleChange2(event){
-        this.setState({
-            number2:event.target.value,
-        })
-    }
-    handleChange3(event){
-        this.setState({
-            number3:event.target.value,
-        })
-    }
-Sum(event){
-    event.preventDefault();
-    this.setState({
-        submit:this.state.number1+ ' '+this.state.number2+' '+this.state.number3
 
-    })
-}
+    handleSubmit(event){
+        event.preventDefault();
+        event.target.reset(); 
+
+        }
+
+
+    NewList(){
+        this.state.names.push(this.state.name)
+        this.setState({
+            names:this.state.names
+        })
+    }
+    DelItem(index){
+        this.state.names.splice(index,1)
+        this.setState({
+            names:this.state.names
+        })
+
+    }
+ 
 
     
     render() {
-        const num=this.state.submit;
+        const list=this.state.names.map((item,index)=>{
+            return(<li key={index}>{item}<button onClick={this.DelItem.bind(this,index)}>Удалить</button></li>
+        )})
         return (
             <div>
-                <h3>Фио</h3>
-                <form onSubmit={this.Sum}>
-                    <input placeholder='Фамилия' onChange={this.handleChange1}/><br/>
-                    <input placeholder='Имя'  onChange={this.handleChange2}/><br/>
-                    <input placeholder='Отчество'  onChange={this.handleChange3}/><br/>
-                    <button type='submit'>Enter</button>
+                <form onSubmit={this.handleSubmit}>
+                    <ul>{list}</ul>
+                    <input onChange={this.handleChange}/>
+                    
+                    <button type='submit' onClick={this.NewList}>Enter</button>
                 </form>
-                <h3>{num}</h3>
 
             </div>
         )
