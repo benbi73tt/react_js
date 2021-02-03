@@ -16,30 +16,48 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = { 
-            value:'',
-            checked:true
+            value:'Ульяновск',
+            town:['Ульяновск','Москва','Питер','Казань'],
+            option:''
         }   
 
-        this.handleCheckbox=this.handleCheckbox.bind(this);
+        this.handleChange=this.handleChange.bind(this);
+        this.handleRadioChange=this.handleRadioChange.bind(this);
 
     }
 
-    handleCheckbox(event){
+    handleChange(event){
         this.setState({
-            checked:!this.state.checked
+            value:event.target.value
         })
     }
+    handleRadioChange(event){
+        this.setState({
+            option:event.target.value
+        })
+    }
+
 
  
 
     
     render() {
-        const text=this.state.checked?<p>{'Hello, my friend'}</p>:' ';
+        const town=this.state.town.map((item,index)=>{
+            return(<option key={index}>{item}</option>)
+        })
 
         return (
             <div>
-                <input checked={this.state.checked} onChange={this.handleCheckbox} type='checkbox'/>
-                {text}
+                <select onChange={this.handleChange}>
+                    {town}
+                </select>
+                <h3>{this.state.value}</h3>
+
+                <input onChange={this.handleRadioChange} checked={this.state.option === '1.touch'} value='1.touch' type='radio'/>
+                <input onChange={this.handleRadioChange} checked={this.state.option === '2.touch'} value='2.touch' type='radio'/>
+                <input onChange={this.handleRadioChange} checked={this.state.option === '3.touch'} value='3.touch' type='radio'/>
+                <h3>{this.state.option}</h3>
+
 
             </div>
         )
