@@ -24,6 +24,8 @@ state(состояние) - создаются в компоненте и пол
  map - выводит массив
 
 items: [...this.state.items, this.state.input]//спред оператор es6, добавляет значение состояния input в массив items
+this.setState({
+    hrefs:[...this.state.hrefs,{href:this.state.href,text:this.state.text}]
 
 //!Уроки React Js - CSS стилизация. Как подключить библиотеку Material Ui, Bootstrap
 https://material-ui.com/ru/getting-started/installation/ 
@@ -72,4 +74,11 @@ import {
 
 
 //TODO
- <h3>{this.state.input.toUpperCase()}</h3> //Вывод с большой буквы (toUpperCase())
+ <h3>{this.state.input.toUpperCase()}</h3> //Вывод с большой буквы (toUpperCase()
+ 
+ 
+ reset - Удаляет значение input(очищает)    
+    handleSubmit(event){
+        event.preventDefault();
+        event.target.reset(); 
+    }
