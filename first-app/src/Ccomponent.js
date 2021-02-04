@@ -16,42 +16,31 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            texts:[],
+
+            
         }
         this.handleChange=this.handleChange.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
+        // this.handleSubmit=this.handleSubmit.bind(this);
     }
-
     handleChange(event){
         this.setState({
-            text:event.target.value
+            change:event.target.value
         })
     }
 
-    handleSubmit(event){
-        event.preventDefault();
-        event.target.reset();
-        if(this.state.text==='')return;
-        else{        
-            this.setState({
-            texts:[...this.state.texts,this.state.text],
-            text:''})}
-
-
-    }
     
     render() {
-        const text=this.state.texts.map((item,index)=>{
-            return(<p key={index}>{item}</p>)
-        })
+
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <textarea placeholder='Введите текст'value={this.state.value} onChange={this.handleChange}/>
-                    <button type='submit'>submit</button>
-                </form>
-        
-                {text}
+                <select onChange={this.handleChange}>
+                    <option>Выберите селект</option>
+                    <option >green</option>
+                    <option >red</option>
+                    <option >yellow</option>
+                    <option >blue</option>
+                </select>
+                <h3 style={{color:this.state.change}}>{this.state.change}</h3>
                 
             </div>
         )
