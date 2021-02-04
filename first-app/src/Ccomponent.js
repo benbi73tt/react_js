@@ -16,47 +16,26 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            submit:[]
-            
+            checked:false,
+            disabled:true
         }
         this.handleChange=this.handleChange.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
+        // this.handleSubmit=this.handleSubmit.bind(this);
     }
+
     handleChange(event){
         this.setState({
-            change:event.target.value,
-
-        })
-    }
-    handleSubmit(event){
-        event.preventDefault();
-        this.setState({
-            submit:[...this.state.submit,this.state.change]
+            disabled:!this.state.disabled,
+            checked:!this.state.checked
         })
     }
 
     
     render() {
-        const text=this.state.submit.map((item,index)=>{
-            return(<option key={index}>{item}</option>)
-        })
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                <input onChange={this.handleChange}/>
-                <button type='submit'>submit</button>
-                </form>
-                <select >
-                    <option>Выберите знаечние</option>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    {text}
-                </select>
-
-
-    
-                
+                <input checked={this.state.checked} type='checkbox' onChange={this.handleChange}/>
+                <input disabled={this.state.disabled}/>
             </div>
         )
     }
