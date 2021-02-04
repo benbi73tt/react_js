@@ -16,11 +16,11 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-
+            submit:[]
             
         }
         this.handleChange=this.handleChange.bind(this);
-        // this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
     handleChange(event){
         this.setState({
@@ -28,20 +28,33 @@ export default class Ccomponent extends Component {
 
         })
     }
+    handleSubmit(event){
+        event.preventDefault();
+        this.setState({
+            submit:[...this.state.submit,this.state.change]
+        })
+    }
 
     
     render() {
-
+        const text=this.state.submit.map((item,index)=>{
+            return(<option key={index}>{item}</option>)
+        })
         return (
             <div>
-                <select onChange={this.handleChange}>
+                <form onSubmit={this.handleSubmit}>
+                <input onChange={this.handleChange}/>
+                <button type='submit'>submit</button>
+                </form>
+                <select >
                     <option>Выберите знаечние</option>
                     <option value='1'>1</option>
                     <option value='2'>2</option>
                     <option value='3'>3</option>
+                    {text}
                 </select>
-                {this.state.change==='2'?<p>Работай</p>:this.state.change==='1'?
-                <p>Развлекайся</p>:this.state.change==='3'?<p>Ничего не делай</p>:''}
+
+
     
                 
             </div>
