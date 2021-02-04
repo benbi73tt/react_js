@@ -16,16 +16,20 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-
+            checked:true
             
         }
         this.handleChange=this.handleChange.bind(this);
-        // this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
     handleChange(event){
         this.setState({
-            change:event.target.value
+            change:event.target.value,
+            checked:!this.state.checked
         })
+    }
+    handleSubmit(event){
+
     }
 
     
@@ -33,14 +37,14 @@ export default class Ccomponent extends Component {
 
         return (
             <div>
-                <select onChange={this.handleChange}>
-                    <option>Выберите селект</option>
-                    <option >green</option>
-                    <option >red</option>
-                    <option >yellow</option>
-                    <option >blue</option>
-                </select>
-                <h3 style={{color:this.state.change}}>{this.state.change}</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <input checked={this.state.checked} type='checkbox'/>
+                    <select onChange={this.handleChange}>
+                        <option>Отмечено</option>
+                        <option>Не отмечено</option>
+                    </select>
+                </form>
+    
                 
             </div>
         )
