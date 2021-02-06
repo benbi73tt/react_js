@@ -2,6 +2,8 @@ import React from 'react';
 import Task from './component/Task';
 import Taskinput from './component/Taskinput';
 
+//Баг при смене выполненого/невыполненного 
+
 class App extends React.Component {
     constructor() {
         super();
