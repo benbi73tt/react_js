@@ -5,3 +5,10 @@
     font-size:1.4em;
     border: 3px solid yellow;
 }
+
+.complete{
+    text-decoration: line-through;
+}
+.Nocomplete{
+    text-decoration:none;
+}

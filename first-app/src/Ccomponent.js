@@ -16,26 +16,43 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            checked:false,
-            disabled:true
+            items:[
+                {id:0,title:'HTML',done:false},
+                {id:1,title:'JS',done:false},
+                {id:2,title:'React',done:false},
+            ],
         }
-        this.handleChange=this.handleChange.bind(this);
+        // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-    handleChange(event){
-        this.setState({
-            disabled:!this.state.disabled,
-            checked:!this.state.checked
+    handleChange(index){
+        this.setState(state=>{
+            let {items} = state;
+            if(items[index].done===false){
+                items[index].done=true;
+                return items;
+            }
+   
         })
+
+
     }
+
 
     
     render() {
+        const list=this.state.items.map((item,index)=>{
+            return(<li className={item.done?'complete':'NoComplete'} key={index}>
+                <input onChange={this.handleChange.bind(this,index)} checked={this.state.items.done} 
+                disabled={item.done} 
+                 type='checkbox' />
+                {item.title}
+            </li>)
+        })
         return (
             <div>
-                <input checked={this.state.checked} type='checkbox' onChange={this.handleChange}/>
-                <input disabled={this.state.disabled}/>
+                {list}
             </div>
         )
     }
