@@ -17,42 +17,46 @@ export default class Ccomponent extends Component {
     
         this.state = {
             items:[
-                {id:0,title:'HTML',done:false},
-                {id:1,title:'JS',done:false},
-                {id:2,title:'React',done:false},
+                {id:0,name:'anton', surname:'burmistr',done:false},
+                {id:1,name:'art', surname:'anan',done:false},
+                {id:2,name:'dima', surname:'semen',done:false},
             ],
         }
-        // this.handleChange=this.handleChange.bind(this);
+        this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
     handleChange(index){
+        if(this.state.items[index].done===false){
         this.setState(state=>{
             let {items} = state;
-            if(items[index].done===false){
-                items[index].done=true;
+            this.state.items[index].done=true;
+            return items;
+        })}
+        else{
+            this.setState(state=>{
+                let {items} = state;
+                this.state.items[index].done=false;
                 return items;
-            }
-   
-        })
-
-
+            })}
     }
 
 
     
     render() {
-        const list=this.state.items.map((item,index)=>{
-            return(<li className={item.done?'complete':'NoComplete'} key={index}>
-                <input onChange={this.handleChange.bind(this,index)} checked={this.state.items.done} 
-                disabled={item.done} 
-                 type='checkbox' />
-                {item.title}
-            </li>)
+        const list=this.state.items.map(item=>{
+            return(<tr key={item.id}>
+                <input onChange={this.handleChange.bind(this,item.id)} checked={item.done} 
+                 type='checkbox' />{item.id+1}
+                <td>{item.name}</td><td>{item.surname}</td> {item.done?'yes':'no'}
+            </tr>)
         })
         return (
             <div>
-                {list}
+                <table>
+                    {list}
+                </table>
+        
             </div>
         )
     }
