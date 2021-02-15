@@ -29,23 +29,32 @@ export default class Ccomponent extends Component {
 
     handleChange(index){
         if(this.state.items[index].done===false){
-        this.setState(state=>{
-            let {items} = state;
-            this.state.items[index].done=true;
-            return items;
-        })}
+            this.setState({
+                sum:this.state.sum+this.state.items[index].salary,
+            })
+            this.setState(state=>{
+                let {items} = state;
+                this.state.items[index].done=true;
+                return items;
+        })
+    console.log(this.state.items)
+}
         else{
+            this.setState({
+                sum:this.state.sum-this.state.items[index].salary,
+            })
             this.setState(state=>{
                 let {items} = state;
                 this.state.items[index].done=false;
                 return items;
-            })} 
+            })}
     }
 
 
 
     
     render() {
+
 
         const list=this.state.items.map(item=>{
             return(<tr key={item.id}>
@@ -59,6 +68,7 @@ export default class Ccomponent extends Component {
                 <table>
                     {list}
                 </table>
+                {this.state.sum}
         
             </div>
         )
