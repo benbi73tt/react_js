@@ -17,9 +17,9 @@ export default class Ccomponent extends Component {
     
         this.state = {
             items:[
-                {id:0,name:'anton', surname:'burmistr', salary: 2000, done:true},
-                {id:1,name:'art', surname:'anan', salary: 5000, done:true},
-                {id:2,name:'dima', surname:'semen', salary:4000, done:true},
+                {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000, done:true},
+                {id:1,name:'art', surname:'anan', age:20, salary: 5000, done:true},
+                {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:true},
             ],
             sum:0,
         }
@@ -54,7 +54,8 @@ export default class Ccomponent extends Component {
             return(<p key={item.id}>
                 <input onChange={this.handleChange.bind(this,item.id)} checked={item.done} 
                  type='checkbox' />{item.id+1}
-                 {item.done? <span> {item.name} {item.surname}</span>:<span> Click the checbox</span>}
+                 <span>{item.name}</span>
+                 {item.done? <span>  {item.surname} {item.age}</span>:""}
             </p>)
         })
         return (
