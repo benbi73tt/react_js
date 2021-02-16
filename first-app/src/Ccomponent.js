@@ -17,31 +17,35 @@ export default class Ccomponent extends Component {
     
         this.state = {
             items:[
-                {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000, done:true},
-                {id:1,name:'art', surname:'anan', age:20, salary: 5000, done:true},
-                {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:true},
+                {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000, done:false},
+                {id:1,name:'art', surname:'anan', age:20, salary: 5000, done:false},
+                {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:false},
             ],
             sum:0,
         }
-        this.handleChange=this.handleChange.bind(this);
+        // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-    handleChange(index){
-        if(this.state.items[index].done===false){
-            this.setState(state=>{
-                let {items} = state;
-                this.state.items[index].done=true;
-                return items;
+    handleClick(index){
+        let arr=this.state.items.map((item,i)=>{
+            if(i===index){
+                return{...item,name:this.state.buf,done:!item.done}}
+            else{
+                return item;
+            }
         })
-    console.log(this.state.items)
-}
-        else{
-            this.setState(state=>{
-                let {items} = state;
-                this.state.items[index].done=false;
-                return items;
-            })}
+        this.setState({
+            items:arr,
+            buf:''
+        })
+    }
+
+    handleChange(event){
+        this.setState({
+            buf:event.target.value
+        })
+
     }
 
 
@@ -51,18 +55,16 @@ export default class Ccomponent extends Component {
 
 
         const list=this.state.items.map(item=>{
-            return(<p key={item.id}>
-                <input onChange={this.handleChange.bind(this,item.id)} checked={item.done} 
-                 type='checkbox' />{item.id+1}
-                 <span>{item.name}</span>
-                 {item.done? <span>  {item.surname} {item.age}</span>:""}
-            </p>)
+            return(<li key={item.id} onClick={this.handleClick.bind(this,item.id)}>
+                {item.name}{item.done?<input autoFocus={true} onBlur={this.handleClick.bind(this,item.id)}
+                onChange={this.handleChange.bind(this)}/>:''}
+            </li>)
         })
         return (
             <div>
-                <h4>
+                <ul>
                     {list}
-                </h4>
+                </ul>
         
             </div>
         )

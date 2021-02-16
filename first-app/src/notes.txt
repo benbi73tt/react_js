@@ -82,3 +82,21 @@ import {
         event.preventDefault();
         event.target.reset(); 
     }
+
+//ANCHOR autoFocus={true} - авто выделение фокуса
+onBlur={this.handleClick.bind(this,item.id)} - изменение при потере фокуса(нажали в другое место)
+
+Смена значения элемента массива через setState()
+//TODO 
+ let arr=this.state.items.map((item,i)=>{
+            if(i===index){
+                return{...item,name:this.state.buf,done:!item.done}}
+            else{
+                return item;
+            }
+        })
+        this.setState({
+            items:arr,
+            buf:''
+        })
+    }
