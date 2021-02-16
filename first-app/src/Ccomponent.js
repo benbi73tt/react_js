@@ -21,40 +21,83 @@ export default class Ccomponent extends Component {
             //     {id:1,name:'art', surname:'anan', age:20, salary: 5000, done:false},
             //     {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:false},
             // ],
-            routes:[
-                {id:0,name:'Ульяновск-Москва'},
-                {id:1,name:'Москва-Ульяновск'},
-                {id:2,name:'Питер-Москва'}
-            ]
+            // routes:[
+            //     {id:0,name:'Ульяновск-Москва'},
+            //     {id:1,name:'Москва-Ульяновск'},
+            //     {id:2,name:'Питер-Москва'}
+            // ],
+            notes:[ ],
+            id:0,
+            buf:''
         }
         // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-    handleRadioChange(event){
+    handleChange(event){
         this.setState({
-            option:event.target.value
+            buf:event.target.value
         })
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+        event.target.reset();
+        if(this.state.buf==='')return;
+        else{
+            const date=new Date();
+            const Time = (date.getHours() +':'+ date.getMinutes() +':'+ date.getSeconds());
+            this.setState({
+                notes:[...this.state.notes,{id:this.state.id++,name:this.state.buf,time:Time,done:false}],
+                buf:'',
+                // id:this.state.id+1,
+            
+            })
+        }
+    }
+
+    handleRedactorSubmit(event){
+        event.preventDefault();
+
+    }
+
+    handleRedactorClick(index){
+        let arr=this.state.notes.map((item,i)=>{
+            if(i===index){
+                return{...item,done:!item.done}
+            }
+            else return item;
+        })
+        this.setState({
+            notes:arr,
+        })
+    }
+
+    handleRedactorChange(index){
+        
     }
 
 
 
     
     render() {
-        const list=this.state.routes.map(item=>{
-            return(<li key={item.id}>
-                <input value={item.name} onChange={this.handleRadioChange.bind(this)} checked={this.state.option===item.name} type='radio'/>{item.name}
-
-            </li>)
+        const list=this.state.notes.map(item=>{
+            return(<div style={{border:'10px',color:'red'}} key={item.id}><h3>Заметка {item.id+1}</h3> 
+            <form onSubmit={this.handleRedactorSubmit.bind(this)}><span>{item.name}
+                <span style={{fontSize:'11px'}}>{item.time}</span>
+                <button onClick={this.handleRedactorClick.bind(this,item.id)} type='submit'>red</button>
+                    {item.done?<input onChange={this.handleRedactorChange.bind(this,item.id)}/>:''}
+            </span></form></div>)
         })
         return (
             <div>
-                <ul>
-                    {list}
-                </ul>
-                <p>{this.state.option}</p>
-        
+                <form onSubmit={this.handleSubmit.bind(this)}>
+                    <textarea value={this.state.value} onChange={this.handleChange.bind(this)} placeholder='Введите заметку'></textarea>  
+                    <button type='submit'>Добавить</button>
+                </form>
+                <div>{list}</div>
             </div>
+
         )
     }
 }
