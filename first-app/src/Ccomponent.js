@@ -17,9 +17,9 @@ export default class Ccomponent extends Component {
     
         this.state = {
             items:[
-                {id:0,name:'anton', surname:'burmistr', salary: 2000, done:false},
-                {id:1,name:'art', surname:'anan', salary: 5000, done:false},
-                {id:2,name:'dima', surname:'semen', salary:4000, done:false},
+                {id:0,name:'anton', surname:'burmistr', salary: 2000, done:true},
+                {id:1,name:'art', surname:'anan', salary: 5000, done:true},
+                {id:2,name:'dima', surname:'semen', salary:4000, done:true},
             ],
             sum:0,
         }
@@ -29,9 +29,6 @@ export default class Ccomponent extends Component {
 
     handleChange(index){
         if(this.state.items[index].done===false){
-            this.setState({
-                sum:this.state.sum+this.state.items[index].salary,
-            })
             this.setState(state=>{
                 let {items} = state;
                 this.state.items[index].done=true;
@@ -40,9 +37,6 @@ export default class Ccomponent extends Component {
     console.log(this.state.items)
 }
         else{
-            this.setState({
-                sum:this.state.sum-this.state.items[index].salary,
-            })
             this.setState(state=>{
                 let {items} = state;
                 this.state.items[index].done=false;
@@ -57,18 +51,17 @@ export default class Ccomponent extends Component {
 
 
         const list=this.state.items.map(item=>{
-            return(<tr key={item.id}>
+            return(<p key={item.id}>
                 <input onChange={this.handleChange.bind(this,item.id)} checked={item.done} 
                  type='checkbox' />{item.id+1}
-                <td>{item.name}</td><td>{item.surname}</td> {item.done? item.salary:'no'}
-            </tr>)
+                 {item.done? <span> {item.name} {item.surname}</span>:<span> Click the checbox</span>}
+            </p>)
         })
         return (
             <div>
-                <table>
+                <h4>
                     {list}
-                </table>
-                {this.state.sum}
+                </h4>
         
             </div>
         )
