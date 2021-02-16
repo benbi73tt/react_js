@@ -16,48 +16,35 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            items:[
-                {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000, done:false},
-                {id:1,name:'art', surname:'anan', age:20, salary: 5000, done:false},
-                {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:false},
-            ],
-            sum:0,
+            // items:[
+            //     {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000, done:false},
+            //     {id:1,name:'art', surname:'anan', age:20, salary: 5000, done:false},
+            //     {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:false},
+            // ],
+            routes:[
+                {id:0,name:'Ульяновск-Москва'},
+                {id:1,name:'Москва-Ульяновск'},
+                {id:2,name:'Питер-Москва'}
+            ]
         }
         // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-    handleClick(index){
-        let arr=this.state.items.map((item,i)=>{
-            if(i===index){
-                return{...item,name:this.state.buf,done:!item.done}}
-            else{
-                return item;
-            }
-        })
+    handleRadioChange(event){
         this.setState({
-            items:arr,
-            buf:''
+            option:event.target.value
         })
-    }
-
-    handleChange(event){
-        this.setState({
-            buf:event.target.value
-        })
-
     }
 
 
 
     
     render() {
+        const list=this.state.routes.map(item=>{
+            return(<li key={item.id}>
+                <input value={item.name} onChange={this.handleRadioChange.bind(this)} checked={this.state.option===item.name} type='radio'/>{item.name}
 
-
-        const list=this.state.items.map(item=>{
-            return(<li key={item.id} onClick={this.handleClick.bind(this,item.id)}>
-                {item.name}{item.done?<input autoFocus={true} onBlur={this.handleClick.bind(this,item.id)}
-                onChange={this.handleChange.bind(this)}/>:''}
             </li>)
         })
         return (
@@ -65,6 +52,7 @@ export default class Ccomponent extends Component {
                 <ul>
                     {list}
                 </ul>
+                <p>{this.state.option}</p>
         
             </div>
         )
