@@ -80,16 +80,25 @@ export default class Ccomponent extends Component {
         })
     }
 
+    handleDelete(index){
+        this.state.notes.splice(index, 1);
+        this.setState({
+            notes:this.state.notes
+        })
+        
+    }
+
 
 
     
     render() {
-        const list=this.state.notes.map(item=>{
-            return(<div style={{border:'10px',color:'red'}} key={item.id}><h3>Заметка {item.id+1}</h3> 
+        const list=this.state.notes.map((item,index)=>{
+            return(<div style={{border:'10px',color:'red'}} key={index}><h3>Заметка {index+1}</h3> 
             <form onSubmit={this.handleRedactorSubmit.bind(this)}><span>{item.name}
                 <span style={{fontSize:'11px'}}>{item.time}</span>
-                <button onClick={this.handleRedactorClick.bind(this,item.id)} type='submit'>red</button>
-                    {item.done?<input autoFocus={true} value={this.state.buf} onBlur={this.handleRedactorClick.bind(this,item.id)} onChange={this.handleRedactorChange.bind(this)}/>:''}
+                <button  onClick={this.handleDelete.bind(this,index)}>Удалить</button>
+                <button onClick={this.handleRedactorClick.bind(this,index)} type='submit'>red</button>
+                    {item.done?<input autoFocus={true} value={this.state.buf} onBlur={this.handleRedactorClick.bind(this,index)} onChange={this.handleRedactorChange.bind(this)}/>:''}
             </span></form></div>)
         })
         return (
