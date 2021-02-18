@@ -64,17 +64,20 @@ export default class Ccomponent extends Component {
     handleRedactorClick(index){
         let arr=this.state.notes.map((item,i)=>{
             if(i===index){
-                return{...item,done:!item.done}
+                return{...item,name:this.state.buf,done:!item.done}
             }
             else return item;
         })
         this.setState({
             notes:arr,
+            buf:this.state.notes[index].name
         })
     }
 
-    handleRedactorChange(index){
-        
+    handleRedactorChange(event){
+        this.setState({
+            buf:event.target.value
+        })
     }
 
 
@@ -86,7 +89,7 @@ export default class Ccomponent extends Component {
             <form onSubmit={this.handleRedactorSubmit.bind(this)}><span>{item.name}
                 <span style={{fontSize:'11px'}}>{item.time}</span>
                 <button onClick={this.handleRedactorClick.bind(this,item.id)} type='submit'>red</button>
-                    {item.done?<input onChange={this.handleRedactorChange.bind(this,item.id)}/>:''}
+                    {item.done?<input autoFocus={true} value={this.state.buf} onBlur={this.handleRedactorClick.bind(this,item.id)} onChange={this.handleRedactorChange.bind(this)}/>:''}
             </span></form></div>)
         })
         return (
