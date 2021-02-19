@@ -16,99 +16,98 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            // items:[
-            //     {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000, done:false},
-            //     {id:1,name:'art', surname:'anan', age:20, salary: 5000, done:false},
-            //     {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:false},
-            // ],
+            items:[
+                {id:1,name:'anton', surname:'burmistr',age:25, salary: 2000, done:false},
+                {id:0,name:'artem', surname:'ananichev', age:20, salary: 5000, done:false},
+                {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:false},
+                {id:-1,name:'cnton', surname:'zurmistr',age:25, salary: 3000, done:false},
+            ],
             // routes:[
             //     {id:0,name:'Ульяновск-Москва'},
             //     {id:1,name:'Москва-Ульяновск'},
             //     {id:2,name:'Питер-Москва'}
             // ],
-            notes:[ ],
-            id:0,
-            buf:''
+            // notes:[ ],
+            // id:0,
+            // buf:''
         }
         // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-    handleChange(event){
+    handleSortName(){
+        var obj = [...this.state.items];
+        obj.sort((a,b)=>{
+            if(a.name < b.name) return -1;
+            if(a.name > b.name) return 1;
+        });
+        obj.map((item, i) => (<div key={i}> {item.surname}  
+                              {item.name} {item.salary}</div>))
+        console.log(obj)
         this.setState({
-            buf:event.target.value
+            items:obj
         })
-    }
-
-    handleSubmit(event){
-        event.preventDefault();
-        event.target.reset();
-        if(this.state.buf==='')return;
-        else{
-            const date=new Date();
-            const Time = (date.getHours() +':'+ date.getMinutes() +':'+ date.getSeconds());
-            this.setState({
-                notes:[...this.state.notes,{id:this.state.id++,name:this.state.buf,time:Time,done:false}],
-                buf:'',
-                // id:this.state.id+1,
-            
-            })
-        }
-    }
-
-    handleRedactorSubmit(event){
-        event.preventDefault();
 
     }
-
-    handleRedactorClick(index){
-        let arr=this.state.notes.map((item,i)=>{
-            if(i===index){
-                return{...item,name:this.state.buf,done:!item.done}
-            }
-            else return item;
-        })
+    
+    handleSortSurname(){
+        var obj = [...this.state.items];
+        obj.sort((a,b)=>{
+            if(a.surname < b.surname) return -1;
+            if(a.surname > b.surname) return 1;
+        });
+        obj.map((item, i) => (<div key={i}> {item.surname}   
+                              {item.name} {item.salary}</div>))
+        console.log(obj)
         this.setState({
-            notes:arr,
-            buf:this.state.notes[index].name
+            items:obj
+        })
+
+    }
+    handleSortSalary(){
+        var obj = [...this.state.items];
+        obj.sort((a,b) => a.salary - b.salary);
+        obj.map((item, i) => (<div key={i}> {item.surname}   
+                              {item.name} {item.salary}</div>))
+        console.log(obj)
+        this.setState({
+            items:obj
         })
     }
-
-    handleRedactorChange(event){
+    handleSortid(){
+        var obj = [...this.state.items];
+        obj.sort((a,b) => a.id - b.id);
+        obj.map((item, i) => (<div key={i}> {item.surname}   
+                              {item.name} {item.salary}</div>))
+        console.log(obj)
         this.setState({
-            buf:event.target.value
+            items:obj
         })
-    }
-
-    handleDelete(index){
-        this.state.notes.splice(index, 1);
-        this.setState({
-            notes:this.state.notes
-        })
-        
     }
 
 
 
     
     render() {
-        const list=this.state.notes.map((item,index)=>{
-            return(<div style={{border:'10px',color:'red'}} key={index}><h3>Заметка {index+1}</h3> 
-            <form onSubmit={this.handleRedactorSubmit.bind(this)}><span>{item.name}
-                <span style={{fontSize:'11px'}}>{item.time}</span>
-                <button  onClick={this.handleDelete.bind(this,index)}>Удалить</button>
-                <button onClick={this.handleRedactorClick.bind(this,index)} type='submit'>red</button>
-                    {item.done?<input autoFocus={true} value={this.state.buf} onBlur={this.handleRedactorClick.bind(this,index)} onChange={this.handleRedactorChange.bind(this)}/>:''}
-            </span></form></div>)
+        const list = this.state.items.map(item=>{
+            return(<li key={item.id}>{item.name}, {item.surname}, {item.salary}
+
+            </li>)
         })
+
         return (
             <div>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <textarea value={this.state.value} onChange={this.handleChange.bind(this)} placeholder='Введите заметку'></textarea>  
-                    <button type='submit'>Добавить</button>
-                </form>
-                <div>{list}</div>
+                <ul>
+                    {list}
+                    <button onClick={this.handleSortName.bind(this)}>сорт по имени</button>
+                    <button onClick={this.handleSortSurname.bind(this)}>сорт по фамилии</button>
+                    <button onClick={this.handleSortSalary.bind(this)}>сорт по зарплате</button>
+                    <button onClick={this.handleSortid.bind(this)}>сорт по id</button>
+  
+                </ul>
+
             </div>
+
 
         )
     }
