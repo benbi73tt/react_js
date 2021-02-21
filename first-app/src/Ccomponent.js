@@ -16,17 +16,17 @@ export default class Ccomponent extends Component {
         super(props)
     
         this.state = {
-            arrLang:[
-                {en:'Monday',rus:'Понедельник'},
-                {en:'Tuesday',rus:'Вторник'},
-                {en:'Wednesday',rus:'Среда'},
-                {en:'Thursday',rus:'Четверг'},
-                {en:'Friday',rus:'Пятница'},
-                {en:'Saturday',rus:'Суббота'},
-                {en:'Sunday',rus:'Воскресенье'},
+            // arrLang:[
+            //     {en:'Monday',rus:'Понедельник'},
+            //     {en:'Tuesday',rus:'Вторник'},
+            //     {en:'Wednesday',rus:'Среда'},
+            //     {en:'Thursday',rus:'Четверг'},
+            //     {en:'Friday',rus:'Пятница'},
+            //     {en:'Saturday',rus:'Суббота'},
+            //     {en:'Sunday',rus:'Воскресенье'},
                 
-            ],
-            lang:'rus',
+            // ],
+            // lang:'rus',
             // items:[
             //     {id:1,name:'anton', surname:'burmistr',age:25, salary: 2000, done:false},
             //     {id:0,name:'artem', surname:'ananichev', age:20, salary: 5000, done:false},
@@ -42,42 +42,27 @@ export default class Ccomponent extends Component {
             // notes:[ ],
             // id:0,
             // buf:''
+            long:''
         }
         // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
-    handleChange(){
-        if(this.state.lang==='rus')
-        this.setState({
-            lang:'en'
-        })
-        else{
-            this.setState({
-                lang:'rus'
-            })
-        }
 
-    }
-
+handleChange(event){
+    this.setState({
+        long:event.target.value
+    })
+}
 
 
     
     render() {
-        const list = this.state.arrLang.map((item,index)=>{
-            return(<option key={index}>{this.state.lang==='en'?item.en:item.rus}
-                </option>)
-                })
+        const long=this.state.long.length;
 
         return (
             <div>
-                <select onChange={this.handleChange.bind(this)}>
-                    <option value={this.state.lang}>Английский</option>
-                    <option selected value={this.state.lang}>Русский</option>
-                </select>
-                <select>
-                    {list}
-                </select>
-
+                <input onChange={this.handleChange.bind(this)} style={
+                    long<4||long>9?{background:'red'}:{background:'green'}}/>
             </div>
 
 
