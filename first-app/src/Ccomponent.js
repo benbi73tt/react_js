@@ -27,12 +27,12 @@ export default class Ccomponent extends Component {
                 
             // ],
             // lang:'rus',
-            // items:[
-            //     {id:1,name:'anton', surname:'burmistr',age:25, salary: 2000, done:false},
-            //     {id:0,name:'artem', surname:'ananichev', age:20, salary: 5000, done:false},
-            //     {id:2,name:'dima', surname:'semen',age:30, salary:4000, done:false},
-            //     {id:-1,name:'cnton', surname:'zurmistr',age:25, salary: 3000, done:false},
-            // ],
+            items:[
+                {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000,  gender:'men', done:false},
+                {id:1,name:'artem', surname:'ananichev', age:20, salary: 5000,gender:'men', done:false},
+                {id:2,name:'kami', surname:'semen',age:30, salary:4000, gender:'women', done:false},
+                {id:3,name:'cnton', surname:'zurmistr',age:25, salary: 3000, gender:'men', done:false},
+            ],
             
             // routes:[
             //     {id:0,name:'Ульяновск-Москва'},
@@ -40,7 +40,7 @@ export default class Ccomponent extends Component {
             //     {id:2,name:'Питер-Москва'}
             // ],
             // notes:[ ],
-            // id:0,
+            id:4,
             // buf:''
             long:''
         }
@@ -48,21 +48,64 @@ export default class Ccomponent extends Component {
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-handleChange(event){
-    this.setState({
-        long:event.target.value
-    })
+    handleChangeName(event){
+        this.setState({
+            name:event.target.value
+        })
+    }
+
+    handleChangeSurname(event){
+        this.setState({
+            surname:event.target.value
+        })
+    }
+
+    handleChangeGender(event){
+        this.setState({
+            gender:event.target.value
+        })
+    }
+handleSubmit(event){
+    event.preventDefault();
+    event.target.reset();
+
+    if(this.state.name&&this.state.surname&&this.state.gender&&this.state.gender!=='Ваш пол?')
+        this.setState({
+            items:[...this.state.items,{id:this.state.id++,name:this.state.name,surname:this.state.surname,gender:this.state.gender}],
+            name:'',
+            surname:'',
+        })
 }
 
 
     
     render() {
-        const long=this.state.long.length;
+        const list=this.state.items.map(item=>{
+            return(
+                <tr key={item.id}>
+                    <td>{item.name}</td>
+                    <td>{item.surname}</td>
+                    <td>{item.salary}</td>
+                    <td>{item.gender}</td>
+                </tr>
+            )
+        })
 
         return (
             <div>
-                <input onChange={this.handleChange.bind(this)} style={
-                    long<4||long>9?{background:'red'}:{background:'green'}}/>
+                <table>
+                    {list}
+                </table>
+                <form onSubmit={this.handleSubmit.bind(this)}>
+                    <input onChange={this.handleChangeName.bind(this)} placeholder='name'/>
+                    <input onChange ={this.handleChangeSurname.bind(this)} placeholder='surname'/>
+                    <select onChange={this.handleChangeGender.bind(this)}>
+                        <option selected disabled>Ваш пол?</option>
+                        <option>men</option>
+                        <option>women</option>
+                    </select>
+                    <button type='submit'>click me</button>
+                </form>
             </div>
 
 
