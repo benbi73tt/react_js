@@ -27,85 +27,64 @@ export default class Ccomponent extends Component {
                 
             // ],
             // lang:'rus',
-            items:[
-                {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000,  gender:'men', done:false},
-                {id:1,name:'artem', surname:'ananichev', age:20, salary: 5000,gender:'men', done:false},
-                {id:2,name:'kami', surname:'semen',age:30, salary:4000, gender:'women', done:false},
-                {id:3,name:'cnton', surname:'zurmistr',age:25, salary: 3000, gender:'men', done:false},
-            ],
+            // items:[
+            //     {id:0,name:'anton', surname:'burmistr',age:25, salary: 2000,  gender:'men', done:false},
+            //     {id:1,name:'artem', surname:'ananichev', age:20, salary: 5000,gender:'men', done:false},
+            //     {id:2,name:'kami', surname:'semen',age:30, salary:4000, gender:'women', done:false},
+            //     {id:3,name:'cnton', surname:'zurmistr',age:25, salary: 3000, gender:'men', done:false},
+            // ],
             
             // routes:[
             //     {id:0,name:'Ульяновск-Москва'},
             //     {id:1,name:'Москва-Ульяновск'},
             //     {id:2,name:'Питер-Москва'}
             // ],
-            // notes:[ ],
-            id:4,
+            notes:[ ],
+            //id:4,
             // buf:''
-            long:''
+            //long:''
         }
         // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-    handleChangeName(event){
+    handleChange(event){
         this.setState({
-            name:event.target.value
+            buf:event.target.value
+        })
+
+    }
+    handleClick(event){
+        event.preventDefault();
+        
+        this.setState({
+            notes:[...this.state.notes,{name:this.state.buf}],
+            buf:''
         })
     }
-
-    handleChangeSurname(event){
+    changeSelect(event){
         this.setState({
-            surname:event.target.value
+            buf1:event.target.value
         })
     }
-
-    handleChangeGender(event){
-        this.setState({
-            gender:event.target.value
-        })
-    }
-handleSubmit(event){
-    event.preventDefault();
-    event.target.reset();
-
-    if(this.state.name&&this.state.surname&&this.state.gender&&this.state.gender!=='Ваш пол?')
-        this.setState({
-            items:[...this.state.items,{id:this.state.id++,name:this.state.name,surname:this.state.surname,gender:this.state.gender}],
-            name:'',
-            surname:'',
-        })
-}
-
 
     
     render() {
-        const list=this.state.items.map(item=>{
-            return(
-                <tr key={item.id}>
-                    <td>{item.name}</td>
-                    <td>{item.surname}</td>
-                    <td>{item.salary}</td>
-                    <td>{item.gender}</td>
-                </tr>
-            )
+        const list=this.state.notes.map(item=>{
+            return(<option key={item.id}>
+                {item.name}
+
+            </option>)
         })
 
         return (
             <div>
-                <table>
+                <select onChange={this.changeSelect.bind(this)}>
                     {list}
-                </table>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <input onChange={this.handleChangeName.bind(this)} placeholder='name'/>
-                    <input onChange ={this.handleChangeSurname.bind(this)} placeholder='surname'/>
-                    <select onChange={this.handleChangeGender.bind(this)}>
-                        <option selected disabled>Ваш пол?</option>
-                        <option>men</option>
-                        <option>women</option>
-                    </select>
-                    <button type='submit'>click me</button>
-                </form>
+                </select><br/>
+                <input value={this.state.buf} onChange={this.handleChange.bind(this)}/>
+                <button onClick={this.handleClick.bind(this)}>Click me</button>
+                <h3>{this.state.buf1}</h3>
             </div>
 
 
