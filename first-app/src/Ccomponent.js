@@ -39,52 +39,111 @@ export default class Ccomponent extends Component {
             //     {id:1,name:'Москва-Ульяновск'},
             //     {id:2,name:'Питер-Москва'}
             // ],
-            notes:[ ],
+            // notes:[ ],
             //id:4,
             // buf:''
             //long:''
+            from:'rub',
+            to:'doll',
+            doll:74,
+            uero:90,
+
         }
         // this.handleChange=this.handleChange.bind(this);
         // this.handleSubmit=this.handleSubmit.bind(this);
     }
 
+
+    handleClick(event){
+        event.preventDefault();
+
+        
+        if(this.state.from===this.state.to){
+            this.setState({
+                sum:this.state.buf,
+            })
+        }else{
+
+            if(this.state.from==='rub'&&this.state.to==='doll'){
+                this.setState({
+                    sum:(this.state.buf*this.state.doll).toFixed(2),
+
+                })}
+            if(this.state.from==='rub'&&this.state.to==='uero'){
+                this.setState({
+                    sum:(this.state.buf*this.state.uero).toFixed(2),
+
+                })}
+            if(this.state.from==='doll'&&this.state.to==='rub'){
+                this.setState({
+                    sum:(this.state.buf/this.state.doll).toFixed(2),
+                })}
+            if(this.state.from==='doll'&&this.state.to==='uero'){
+                this.setState({
+                    sum:((this.state.buf*this.state.doll)/this.state.uero).toFixed(2)
+                })}
+
+            if(this.state.from==='uero'&&this.state.to==='rub'){
+                this.setState({
+                    sum:(this.state.buf/this.state.uero).toFixed(2),
+                })}
+
+            if(this.state.from==='uero'&&this.state.to==='doll'){
+                this.setState({
+                    sum:((this.state.buf*this.state.uero)/this.state.doll).toFixed(2)
+                })}}
+        this.setState({
+            buf:''
+        })
+    }
     handleChange(event){
         this.setState({
             buf:event.target.value
         })
+    }
 
-    }
-    handleClick(event){
-        event.preventDefault();
         
+    handleChangeTransferFrom(event){
         this.setState({
-            notes:[...this.state.notes,{name:this.state.buf}],
-            buf:''
+            from:event.target.value
         })
+        
     }
-    changeSelect(event){
+    
+    handleChangeTransferTo(event){
         this.setState({
-            buf1:event.target.value
+            to:event.target.value
         })
+
+
     }
 
     
+    
+    
+    
+    
+    
     render() {
-        const list=this.state.notes.map(item=>{
-            return(<option key={item.id}>
-                {item.name}
-
-            </option>)
-        })
 
         return (
             <div>
-                <select onChange={this.changeSelect.bind(this)}>
-                    {list}
-                </select><br/>
-                <input value={this.state.buf} onChange={this.handleChange.bind(this)}/>
-                <button onClick={this.handleClick.bind(this)}>Click me</button>
-                <h3>{this.state.buf1}</h3>
+                <input value={this.state.buf}onChange={this.handleChange.bind(this)}/>
+                <select value={this.state.from} onChange={this.handleChangeTransferFrom.bind(this)}>
+                    <option name='rub' selected>rub</option>
+                    <option name='doll'>doll</option>
+                    <option name='uero'>uero</option>
+                </select>
+                <select value={this.state.to} onChange={this.handleChangeTransferTo.bind(this)}>
+                    <option name='doll' selected>doll</option>
+                    <option name='rub' >rub</option>
+                    <option name='uero' >uero</option>
+                </select>
+                <br/><button onClick={this.handleClick.bind(this)} >click me</button>
+
+                <h3>{this.state.from}</h3>
+                <h3>{this.state.to}</h3>
+                <h3>{this.state.sum}</h3>
             </div>
 
 
