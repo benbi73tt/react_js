@@ -71,7 +71,11 @@ handleInpChange(event){
     })
 }
 
-handleDelClick(){
+handleDelClick(index){
+        this.state.notes.splice(index,1)
+        this.setState({
+            notes:this.state.notes
+        })
     
 }
 
